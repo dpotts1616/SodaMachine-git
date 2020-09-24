@@ -8,5 +8,18 @@ namespace Soda_Machine
 {
     class Simulation
     {
+        //member variables
+        public SodaMachine sodaMachine;
+        public Customer customer;
+        public static Random random = new Random();
+
+        //constructor
+        public Simulation()
+        {
+            sodaMachine = new SodaMachine();
+            customer = new Customer();
+        }
+
+        //methods
     }
 }

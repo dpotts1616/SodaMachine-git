@@ -10,6 +10,8 @@ namespace Soda_Machine
     {
         static void Main(string[] args)
         {
+            Simulation simulation = new Simulation();
+
         }
     }
 }

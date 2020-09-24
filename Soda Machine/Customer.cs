@@ -8,5 +8,17 @@ namespace Soda_Machine
 {
     class Customer
     {
+        //member variables
+        public Wallet wallet;
+        public Backpack backpack;
+
+        //constructor
+        public Customer()
+        {
+            backpack = new Backpack();
+            wallet = new Wallet();
+        }
+
+        //methods
     }
 }
