@@ -21,5 +21,10 @@ namespace Soda_Machine
         }
 
         //methods
+        public void RunSimulation()
+        {
+
+        }
+        
     }
 }

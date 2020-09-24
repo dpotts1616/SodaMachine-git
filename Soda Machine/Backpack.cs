@@ -14,7 +14,7 @@ namespace Soda_Machine
         //constructor
         public Backpack()
         {
-
+            cans = new List<Can>();
         }
 
         //methods
