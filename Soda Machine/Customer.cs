@@ -32,7 +32,7 @@ namespace Soda_Machine
         public Coin InputCoins(double temporaryRegister)
         {
             int coinSelection = UserInterface.InputCoins(temporaryRegister);
-            do
+            while (coinSelection < 5)
             {
                 Coin coin = GetCoin(coinSelection);
                 if (CheckWallet(coin) == true)
@@ -40,7 +40,7 @@ namespace Soda_Machine
                     wallet.coins.Remove(wallet.coins.Where(c => c.name == coin.name).FirstOrDefault());
                     return coin;
                 }
-            } while (coinSelection < 5);
+            }
             return null;
         }
 

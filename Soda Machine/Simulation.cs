@@ -31,7 +31,7 @@ namespace Soda_Machine
             {
                 double value = sodaMachine.GetTemporaryRegister();
                 coin = customer.InputCoins(value);
-                sodaMachine.AddToTemporaryRegister(coin);
+                if (coin != null) { sodaMachine.AddToTemporaryRegister(coin); }
 
             }while(coin != null);
             

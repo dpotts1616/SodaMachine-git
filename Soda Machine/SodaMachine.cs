@@ -109,7 +109,7 @@ namespace Soda_Machine
 
         public Can CompleteTransaction(int choice)
         {
-            double value = temporaryRegister.Sum(s => s.Value);
+            double value = GetTemporaryRegister();
             Can can = GetSoda(choice);
             if (value < can.Cost)
             {
@@ -175,9 +175,12 @@ namespace Soda_Machine
                 if (coin.Value <= (change))
                 {
                     change -= coin.Value;
-                    register.Remove(coin);
                     temporaryRegister.Add(coin);
                 }
+            }
+            foreach (Coin coin in temporaryRegister)
+            {
+                register.Remove(register.Where(c => c.name == coin.name).FirstOrDefault());
             }
         }
 
