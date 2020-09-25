@@ -52,7 +52,6 @@ namespace Soda_Machine
                 return null;
         }
 
-
         public bool CheckWallet(Coin coin)
         {
             return wallet.coins.Any(c => c.name == coin.name);

@@ -77,6 +77,9 @@ namespace Soda_Machine
                         return i;
                     case 5:
                         return i;
+                    default:
+                        Console.WriteLine("Sorry, that is invalid. Please enter 1, 2, 3, 4 or 5");
+                        break;
                 }
 
             } while (valid == false);
@@ -92,6 +95,7 @@ namespace Soda_Machine
 
         public static void DisplayCustomerDetails(int cans, double money)
         {
+            money = Math.Round(money, 2);
             Console.Clear();
             Console.WriteLine($"Sodas in backpack: {cans}");
             Console.WriteLine($"Money in wallet: {money}");
@@ -101,6 +105,13 @@ namespace Soda_Machine
         public static void DisplayMissingChange()
         {
             Console.WriteLine("Sorry, unable to make change for your purchase");
+            Thread.Sleep(1000);
+        }
+
+        public static void DisplayLackOfMoneyInput()
+        {
+            Console.WriteLine("Sorry, not enough money entered");
+            Thread.Sleep(1000);
         }
     }
 }

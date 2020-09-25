@@ -32,7 +32,7 @@ namespace Soda_Machine
             for (int i = 0; i < 20; i++) { register.Add(new Quarter()); }
             for (int i = 0; i < 10; i++) { register.Add(new Dime()); }
             for (int i = 0; i < 20; i++) { register.Add(new Nickel()); }
-            for (int i = 0; i < 50; i++) { register.Add(new Penny());  }
+            for (int i = 0; i < 50; i++) { register.Add(new Penny()); }
         }
 
         public void PopulateCans()
@@ -51,7 +51,6 @@ namespace Soda_Machine
         {
             double value = temporaryRegister.Sum(s => s.Value);
             return value;
-            //return temporaryRegister;
         }
 
         public void DisplayInventory()
@@ -80,7 +79,7 @@ namespace Soda_Machine
             switch (choice)
             {
                 case 1:
-                    foreach(Can can in inventory)
+                    foreach (Can can in inventory)
                     {
                         if (can.name == "Root Beer")
                         {
@@ -130,12 +129,12 @@ namespace Soda_Machine
             Can can = GetSoda(choice);
             if (value < can.Cost)
             {
+                UserInterface.DisplayLackOfMoneyInput();
                 return null;
             }
             else if (value == can.Cost)
             {
-                MoveTempToRegister(temporaryRegister);
-                inventory.Remove(inventory.Where(c => c.name == can.name).FirstOrDefault());
+                BuySoda(temporaryRegister, can);
                 return can;
             }
             else if (value > can.Cost)
@@ -143,9 +142,8 @@ namespace Soda_Machine
                 double difference = (value - can.Cost);
                 if (CheckForChange(difference) == true)
                 {
-                    MoveTempToRegister(temporaryRegister);
+                    BuySoda(temporaryRegister, can);
                     MoveChangeToTemp(difference);
-                    inventory.Remove(inventory.Where(c => c.name == can.name).FirstOrDefault());
                     return can;
                 }
                 else
@@ -155,6 +153,12 @@ namespace Soda_Machine
                 }
             }
             return null;
+        }
+
+        public void BuySoda(List<Coin> temporaryRegister, Can can)
+        {
+            MoveTempToRegister(temporaryRegister);
+            inventory.Remove(inventory.Where(c => c.name == can.name).FirstOrDefault());
         }
 
         public void MoveTempToRegister(List<Coin> temporaryRegister)
