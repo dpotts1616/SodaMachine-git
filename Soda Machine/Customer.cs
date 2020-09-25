@@ -1,6 +1,8 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,28 +22,34 @@ namespace Soda_Machine
         }
 
         //methods
-        public void SelectSoda()
+
+        public int SelectSoda()
         {
             int choice = UserInterface.AskForSodaChoice();
+            return choice;
         }
 
-        public void InputCoins()
+        public Coin InputCoins(double temporaryRegister)
         {
-            List<Coin> totalCoinInput = new List<Coin>();
-            double value = 0;
-            int coinSelection;
+            int coinSelection = UserInterface.InputCoins(temporaryRegister);
             do
             {
-                coinSelection = UserInterface.InputCoins(value);
                 Coin coin = GetCoin(coinSelection);
-                if (wallet.coins.Contains(coin))
+                if (CheckWallet(coin) == true)
                 {
-                    totalCoinInput.Add(coin);
-                    wallet.coins.Remove(coin);
-                    value = UpdateTotalInput(totalCoinInput);
+                    wallet.coins.Remove(wallet.coins.Where(c => c.name == coin.name).FirstOrDefault());
+                    return coin;
                 }
-            } while (coinSelection != 5);
+            } while (coinSelection < 5);
+            return null;
         }
+
+
+        public bool CheckWallet(Coin coin)
+        {
+            return wallet.coins.Any(c => c.name == coin.name);
+        }
+
 
         public Coin GetCoin(int coinSelection)
         {
@@ -64,15 +72,20 @@ namespace Soda_Machine
             return null;
         }
 
-        public double UpdateTotalInput(List<Coin> coins)
+        public void AddToBackpack(Can can)
         {
-            double value = 0;
-            foreach (Coin coin in coins)
-            {
-                value += coin.Value;
-            }
-            return value;
+            backpack.cans.Add(can);
         }
+
+        //public double UpdateTotalInput(List<Coin> coins)
+        //{
+        //    double value = 0;
+        //    foreach (Coin coin in coins)
+        //    {
+        //        value += coin.Value;
+        //    }
+        //    return value;
+        //}
         //input coins/take out of wallet
         //user interface select soda
         //compare to selection(in simulation)

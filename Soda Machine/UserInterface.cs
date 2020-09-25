@@ -14,6 +14,14 @@ namespace Soda_Machine
         //constructor
 
         //methods
+        //public static void DisplayInventory()
+        //{
+        //    Console.WriteLine("Which Soda would you like?");
+        //    Console.WriteLine("1) Root Beer");
+        //    Console.WriteLine("2) Orange Soda");
+        //    Console.WriteLine("3) Cola");
+        //}
+        
         public static int AskForSodaChoice()
         {
             bool valid = false;
@@ -43,19 +51,20 @@ namespace Soda_Machine
             return i;
         }
 
-        public static int InputCoins(double value)
+        public static int InputCoins(double temporaryRegister)
         {
             bool valid = false;
             int i = 0;
             do
             {
+                Console.Clear();
                 Console.WriteLine("Please insert coins");
                 Console.WriteLine("1) Quarter");
                 Console.WriteLine("2) Dime");
                 Console.WriteLine("3) Nickel");
                 Console.WriteLine("4) Penny");
                 Console.WriteLine("5) Done");
-                Console.WriteLine($"Total inserted: ${value}");
+                Console.WriteLine($"Total inserted: ${temporaryRegister}");
                 Console.Write("Enter:");
                 try { i = Convert.ToInt32(Console.ReadLine()); } catch { }
 
