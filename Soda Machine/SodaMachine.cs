@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Soda_Machine
@@ -53,10 +54,26 @@ namespace Soda_Machine
             //return temporaryRegister;
         }
 
-        //public void DisplayInventory()
-        //{
-        //    UserInterface.DisplayInventory(inventory);
-        //}
+        public void DisplayInventory()
+        {
+            int rootBeer = GetSodaQuantity("Root Beer");
+            int orangeSoda = GetSodaQuantity("Orange Soda");
+            int cola = GetSodaQuantity("Cola");
+            UserInterface.DisplayInventory(rootBeer, orangeSoda, cola);
+        }
+
+        public int GetSodaQuantity(string name)
+        {
+            int count = 0;
+            foreach (Can can in inventory)
+            {
+                if (can.name == name)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
 
         public bool CheckInventory(int choice)
         {
@@ -114,7 +131,6 @@ namespace Soda_Machine
             if (value < can.Cost)
             {
                 return null;
-                //not enough money, send it back to customer wallet
             }
             else if (value == can.Cost)
             {
@@ -134,7 +150,7 @@ namespace Soda_Machine
                 }
                 else
                 {
-                    //UI display error saying no proper change available
+                    UserInterface.DisplayMissingChange();
                     return null;
                 }
             }
@@ -147,7 +163,7 @@ namespace Soda_Machine
             {
                 register.Add(coin);
             }
-            temporaryRegister.Clear();
+            ClearTemporaryRegister();
         }
 
         public bool CheckForChange(double change)
@@ -184,9 +200,14 @@ namespace Soda_Machine
             }
         }
 
-        public List<Coin> ReturnMoney(List<Coin> temporaryRegister)
+        public List<Coin> ReturnMoney()
         {
             return temporaryRegister;
+        }
+
+        public void ClearTemporaryRegister()
+        {
+            temporaryRegister.Clear();
         }
     }
 }

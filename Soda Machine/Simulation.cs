@@ -24,25 +24,32 @@ namespace Soda_Machine
         //methods
         public void RunSimulation()
         {
-            int choice = customer.SelectSoda();
-            sodaMachine.CheckInventory(choice);
-            Coin coin;
-            do
+            while(sodaMachine.inventory.Count > 0)
             {
-                double value = sodaMachine.GetTemporaryRegister();
-                coin = customer.InputCoins(value);
-                if (coin != null) { sodaMachine.AddToTemporaryRegister(coin); }
+                customer.DisplayCurrentStatus();
+                sodaMachine.DisplayInventory();
+                int choice = customer.SelectSoda();
+                sodaMachine.CheckInventory(choice);
+                Coin coin;
+                do
+                {
+                    double value = sodaMachine.GetTemporaryRegister();
+                    coin = customer.InputCoins(value);
+                    if (coin != null) { sodaMachine.AddToTemporaryRegister(coin); }
 
-            }while(coin != null);
-            
-            Can can = sodaMachine.CompleteTransaction(choice);
-            if (can != null)
-            {
-                customer.AddToBackpack(can);
+                } while (coin != null);
+
+                Can can = sodaMachine.CompleteTransaction(choice);
+                if (can != null)
+                {
+                    customer.AddToBackpack(can);
+                }
+
+                List<Coin> change = sodaMachine.ReturnMoney();
+                customer.AddChangeToWallet(change);
+                sodaMachine.ClearTemporaryRegister();
             }
-            //add can to backpack
-            //add change to wallet
-
+            
         }
         
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Soda_Machine
@@ -14,24 +15,20 @@ namespace Soda_Machine
         //constructor
 
         //methods
-        //public static void DisplayInventory()
-        //{
-        //    Console.WriteLine("Which Soda would you like?");
-        //    Console.WriteLine("1) Root Beer");
-        //    Console.WriteLine("2) Orange Soda");
-        //    Console.WriteLine("3) Cola");
-        //}
-        
+        public static void DisplayInventory(int rootReer, int orangeSoda, int cola)
+        {
+            Console.WriteLine("Which Soda would you like?");
+            Console.WriteLine($"1) Root Beer $0.65 Quantity Left: {rootReer}");
+            Console.WriteLine($"2) Orange Soda $0.06 Quantity Left: {orangeSoda}");
+            Console.WriteLine($"3) Cola $0.35 Quantity Left: {cola}");
+        }
+
         public static int AskForSodaChoice()
         {
             bool valid = false;
             int i = 0;
             do
             {
-                Console.WriteLine("Which Soda would you like?");
-                Console.WriteLine("1) Root Beer");
-                Console.WriteLine("2) Orange Soda");
-                Console.WriteLine("3) Cola");
                 try { i = Convert.ToInt32(Console.ReadLine()); } catch { }
                 switch(i)
                 {
@@ -85,6 +82,25 @@ namespace Soda_Machine
             } while (valid == false);
 
             return i;
+        }
+
+        public static void DisplayLackOfCoin(string coinName)
+        {
+            Console.WriteLine($"Sorry, you don't have any {coinName}'s");
+            Thread.Sleep(1000);
+        }
+
+        public static void DisplayCustomerDetails(int cans, double money)
+        {
+            Console.Clear();
+            Console.WriteLine($"Sodas in backpack: {cans}");
+            Console.WriteLine($"Money in wallet: {money}");
+            Console.WriteLine();
+        }
+
+        public static void DisplayMissingChange()
+        {
+            Console.WriteLine("Sorry, unable to make change for your purchase");
         }
     }
 }

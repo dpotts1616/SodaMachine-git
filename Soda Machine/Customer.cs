@@ -31,17 +31,25 @@ namespace Soda_Machine
 
         public Coin InputCoins(double temporaryRegister)
         {
-            int coinSelection = UserInterface.InputCoins(temporaryRegister);
-            while (coinSelection < 5)
+            int coinSelection = 0;
+            do
             {
+                coinSelection = UserInterface.InputCoins(temporaryRegister);
                 Coin coin = GetCoin(coinSelection);
-                if (CheckWallet(coin) == true)
+                if(coinSelection != 5)
                 {
-                    wallet.coins.Remove(wallet.coins.Where(c => c.name == coin.name).FirstOrDefault());
-                    return coin;
+                    if (CheckWallet(coin) == true)
+                    {
+                        wallet.coins.Remove(wallet.coins.Where(c => c.name == coin.name).FirstOrDefault());
+                        return coin;
+                    }
+                    else
+                    {
+                        UserInterface.DisplayLackOfCoin(coin.name);
+                    }
                 }
-            }
-            return null;
+            } while (coinSelection < 5) ;
+                return null;
         }
 
 
@@ -77,17 +85,18 @@ namespace Soda_Machine
             backpack.cans.Add(can);
         }
 
-        //public double UpdateTotalInput(List<Coin> coins)
-        //{
-        //    double value = 0;
-        //    foreach (Coin coin in coins)
-        //    {
-        //        value += coin.Value;
-        //    }
-        //    return value;
-        //}
-        //input coins/take out of wallet
-        //user interface select soda
-        //compare to selection(in simulation)
+        public void AddChangeToWallet(List<Coin> change)
+        {
+            foreach (Coin coin in change)
+            {
+                wallet.coins.Add(coin);
+            }
+        }
+
+        public void DisplayCurrentStatus()
+        {
+            double money = wallet.coins.Sum(s => s.Value);
+            UserInterface.DisplayCustomerDetails(backpack.cans.Count, money);
+        }
     }
 }
