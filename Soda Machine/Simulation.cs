@@ -29,25 +29,29 @@ namespace Soda_Machine
                 customer.DisplayCurrentStatus();
                 sodaMachine.DisplayInventory();
                 int choice = customer.SelectSoda();
-                sodaMachine.CheckInventory(choice);
+                bool isInInventory = sodaMachine.CheckInventory(choice);
                 Coin coin;
-                do
+                if (isInInventory ==true)
                 {
-                    double value = sodaMachine.GetTemporaryRegister();
-                    coin = customer.InputCoins(value);
-                    if (coin != null) { sodaMachine.AddToTemporaryRegister(coin); }
+                    do
+                    {
+                        double value = sodaMachine.GetTemporaryRegister();
+                        coin = customer.InputCoins(value);
+                        if (coin != null) { sodaMachine.AddToTemporaryRegister(coin); }
 
-                } while (coin != null);
+                    } while (coin != null);
 
-                Can can = sodaMachine.CompleteTransaction(choice);
-                if (can != null)
-                {
-                    customer.AddToBackpack(can);
+                    Can can = sodaMachine.CompleteTransaction(choice);
+                    if (can != null)
+                    {
+                        customer.AddToBackpack(can);
+                    }
+
+                    List<Coin> change = sodaMachine.ReturnMoney();
+                    customer.AddChangeToWallet(change);
+                    sodaMachine.ClearTemporaryRegister();
                 }
-
-                List<Coin> change = sodaMachine.ReturnMoney();
-                customer.AddChangeToWallet(change);
-                sodaMachine.ClearTemporaryRegister();
+                
             }
             
         }

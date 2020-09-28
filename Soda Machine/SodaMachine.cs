@@ -86,6 +86,7 @@ namespace Soda_Machine
                             return true;
                         }
                     }
+                    UserInterface.DisplayOutOfStock();
                     return false;
                 case 2:
                     foreach (Can can in inventory)
@@ -95,6 +96,7 @@ namespace Soda_Machine
                             return true;
                         }
                     }
+                    UserInterface.DisplayOutOfStock();
                     return false;
                 case 3:
                     foreach (Can can in inventory)
@@ -104,6 +106,7 @@ namespace Soda_Machine
                             return true;
                         }
                     }
+                    UserInterface.DisplayOutOfStock();
                     return false;
             }
             return false;

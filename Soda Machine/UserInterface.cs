@@ -113,5 +113,11 @@ namespace Soda_Machine
             Console.WriteLine("Sorry, not enough money entered");
             Thread.Sleep(1000);
         }
+
+        public static void DisplayOutOfStock()
+        {
+            Console.WriteLine("Sorry, that item is currently out of stock");
+            Thread.Sleep(1000);
+        }
     }
 }
