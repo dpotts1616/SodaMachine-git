@@ -129,6 +129,7 @@ namespace Soda_Machine
         public Can CompleteTransaction(int choice)
         {
             double value = GetTemporaryRegister();
+            Math.Round(value);
             Can can = GetSoda(choice);
             if (value < can.Cost)
             {
@@ -143,6 +144,7 @@ namespace Soda_Machine
             else if (value > can.Cost)
             {
                 double difference = (value - can.Cost);
+                difference = Math.Round(difference, 2);
                 if (CheckForChange(difference) == true)
                 {
                     BuySoda(temporaryRegister, can);
